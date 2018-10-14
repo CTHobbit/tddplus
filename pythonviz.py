@@ -27,10 +27,7 @@ try:
     cur.execute('SELECT Score from Assignments where SO = "SO1"')
     SO1 = cur.fetchall()
 
-    avgso1 = np.mean(SO1)
-
-    #for row in rows:
-    #print (rows)
+    
         
 except lite.Error as e :
     
@@ -42,8 +39,11 @@ finally:
     if con:
         con.close()
 
+#average of SO1 scores
+avgso1 = round(np.mean(SO1),2)
 print(avgso1)
 
+#PEO1 Histogram
 a = np.array(PEO1) 
 plt.hist(a) 
 plt.title("Distribution of Scores for PEO1")
