@@ -43,8 +43,12 @@ finally:
 avgso1 = round(np.mean(SO1),2)
 print(avgso1)
 
-#PEO1 Histogram
+#Combined SO1 and PEO1 Histogram
 a = np.array(PEO1) 
-plt.hist(a) 
-plt.title("Distribution of Scores for PEO1")
+b = np.array(SO1)
+bins = (50,60,70,80,90,100)
+
+plt.hist([a, b], bins, label=['PEO1', 'SO1'])
+plt.title("Distribution of Scores for PEO1 and SO1")
+plt.legend(loc='upper right')
 plt.show()
