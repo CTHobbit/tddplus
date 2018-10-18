@@ -52,6 +52,7 @@ a = np.array(PEO1)
 b = np.array(SO1)
 bins = (50,60,70,80,90,100)
 
+#setting style to seaborn to make it look better: https://seaborn.pydata.org/tutorial/aesthetics.html
 sns.set()
 
 plt.hist([a, b], bins, label=['PEO1', 'SO1'])
