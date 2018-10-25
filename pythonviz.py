@@ -7,7 +7,7 @@ from matplotlib.ticker import PercentFormatter
 import plotly.plotly as py
 import plotly.graph_objs as go
 import seaborn as sns
-
+from bokeh.plotting import figure, output_file, show
 
 #clear connection variable
 con = None
@@ -31,8 +31,8 @@ try:
     cur.execute('SELECT Score from Assignments where SO = "SO1"')
     SO1 = cur.fetchall()
 
-    #PEO1 Scores by 
-    cur.execute('Select * from Assignments where PEO = "PEO1"')
+    #PEO1 Scores by Year
+    cur.execute('Select Year, Score from Assignments where PEO = "PEO1"')
     PEO1Scores = np.array(cur.fetchall())
     
         
@@ -56,9 +56,9 @@ b = np.array(SO1)
 bins = (50,60,70,80,90,100)
 
 #Data for bar graph showing PEO1 by Year
-PEO1Scores = PEO1Scores[PEO1Scores[:,7].argsort()]
-x = PEO1Scores[:,7]
-y = PEO1Scores[:,5]
+PEO1Scores = PEO1Scores[PEO1Scores[:,1].argsort()]
+x = PEO1Scores[:,0]
+y = PEO1Scores[:,1]
 
 #setting style to seaborn to make it look better: https://seaborn.pydata.org/tutorial/aesthetics.html
 sns.set()
@@ -75,6 +75,16 @@ plt.scatter(x,y)
 
 plt.show()
 
+# output to HTML file
+output_file("accredplots.html")
+
+p = figure(plot_width=400, plot_height=400)
+
+# add a circle renderer with a size, color, and alpha
+p.circle(x,y, size=5, color="navy", alpha=0.5)
+
+# show the results
+show(p)
 
 #Combined interactive histograms with plotly, proof of concept, creates a plot
 #online using an API and is stored at https://plot.ly/~bschenkman/0

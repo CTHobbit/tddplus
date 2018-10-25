@@ -41,3 +41,5 @@ Required libraries:
 >plotly
 
 >seaborn
+
+>bokeh
