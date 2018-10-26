@@ -7,6 +7,7 @@ from matplotlib.ticker import PercentFormatter
 import plotly.plotly as py
 import plotly.graph_objs as go
 import seaborn as sns
+import pandas as pd
 from bokeh.plotting import figure, output_file, show
 
 #clear connection variable
@@ -60,6 +61,16 @@ PEO1Scores = PEO1Scores[PEO1Scores[:,1].argsort()]
 x = PEO1Scores[:,0]
 y = PEO1Scores[:,1]
 
+#Creating a pandas dataframe for aggregation
+
+data = np.int_(PEO1Scores)
+
+dataset = pd.DataFrame({'Year': data[:,0],
+                   'Score': data[:,1]})
+
+#group data by year and average the scores for that year
+datasetmean = dataset.groupby('Year', as_index=False)['Score'].mean()
+
 #setting style to seaborn to make it look better: https://seaborn.pydata.org/tutorial/aesthetics.html
 sns.set()
 
@@ -73,6 +84,10 @@ plt.legend(loc='upper right')
 plt.subplot(212)
 plt.scatter(x,y)
 
+#Bar chart of average score per year
+#plt.subplot(221)
+#dataset.groupby('Year', as_index=False)['Score'].mean().plot.bar()
+
 plt.show()
 
 # output to HTML file
@@ -85,6 +100,8 @@ p.circle(x,y, size=5, color="navy", alpha=0.5)
 
 # show the results
 show(p)
+
+
 
 #Combined interactive histograms with plotly, proof of concept, creates a plot
 #online using an API and is stored at https://plot.ly/~bschenkman/0
