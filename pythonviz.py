@@ -57,7 +57,7 @@ b = np.array(SO1)
 bins = (50,60,70,80,90,100)
 
 #Data for bar graph showing PEO1 by Year
-PEO1Scores = PEO1Scores[PEO1Scores[:,1].argsort()]
+PEO1Scores = PEO1Scores[PEO1Scores[:,0].argsort()]
 x = PEO1Scores[:,0]
 y = PEO1Scores[:,1]
 
@@ -74,19 +74,26 @@ datasetmean = dataset.groupby('Year', as_index=False)['Score'].mean()
 #setting style to seaborn to make it look better: https://seaborn.pydata.org/tutorial/aesthetics.html
 sns.set()
 
+#Figures to display on-screen prior to html export
+
 plt.figure(1)
-plt.subplot(211)
+plt.subplot(311)
 plt.hist([a, b], bins, label=['PEO1', 'SO1'])
 plt.title("Distribution of Scores for PEO1 and SO1")
 plt.legend(loc='upper right')
 
 #Scatter plot of scores by year
-plt.subplot(212)
+plt.subplot(312)
+plt.ylabel('Scores')
+plt.title('Individual Scores by Year')
 plt.scatter(x,y)
 
 #Bar chart of average score per year
-#plt.subplot(221)
-#dataset.groupby('Year', as_index=False)['Score'].mean().plot.bar()
+plt.subplot(313)
+plt.ylabel('Average Score')
+plt.title('Average Scores by Year')
+df = dataset.groupby(['Year'])['Score'].mean()
+df.plot.bar()
 
 plt.show()
 
