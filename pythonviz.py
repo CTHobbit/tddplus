@@ -9,6 +9,7 @@ import plotly.graph_objs as go
 import seaborn as sns
 import pandas as pd
 from bokeh.plotting import figure, output_file, show
+from bokeh.layouts import row
 
 #clear connection variable
 con = None
@@ -18,12 +19,7 @@ try:
     con = lite.connect('sampledb.sqlite')
     
     cur = con.cursor()    
-    #cur.execute('SELECT SQLITE_VERSION()')
-
-    #data = cur.fetchone()
     
-    #print ("SQLite version: %s" % data)
-
     #PEO1 Scores
     cur.execute('SELECT Score from Assignments where PEO = "PEO1"')
     PEO1 = cur.fetchall()
@@ -47,9 +43,6 @@ finally:
     if con:
         con.close()
 
-#average of SO1 scores
-#avgso1 = round(np.mean(SO1),2)
-#print(avgso1)
 
 #Data for combined SO1 and PEO1 Histogram
 a = np.array(PEO1) 
@@ -97,17 +90,24 @@ df.plot.bar()
 
 plt.show()
 
-# output to HTML file
-output_file("accredplots.html")
-
 p = figure(plot_width=400, plot_height=400)
 
 # add a circle renderer with a size, color, and alpha
 p.circle(x,y, size=5, color="navy", alpha=0.5)
 
-# show the results
-show(p)
+# Plot quad/histogram
+hist_a, edges = np.histogram(a, density=True, bins=5)
+hist_b, edges = np.histogram(b, density=True, bins=5)
+p1 = figure(plot_width=400, plot_height=400)
+p1.quad(top=hist_a, bottom=0, left=edges[:-1], right=edges[1:], alpha=0.4)
+p2 = figure(plot_width=400, plot_height=400)
+p2.quad(top=hist_b, bottom=0, left=edges[:-1], right=edges[1:], alpha=0.4)
 
+# show the results
+show(row(p, p1, p2))
+
+# output to HTML file
+output_file("accredplots.html")
 
 
 #Combined interactive histograms with plotly, proof of concept, creates a plot

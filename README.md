@@ -38,8 +38,11 @@ Required libraries:
 
 >numpy
 
+>pandas
+
 >plotly
 
 >seaborn
 
 >bokeh
+
