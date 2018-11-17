@@ -9,7 +9,7 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def test_can_start_a_list_and_retrieve_it_later(self):
+    def test_can_add_assignmentdata_and_view_it_later(self):
         # Faculty Member goes to the page to enter assignment data
         self.browser.get('http://localhost:8000')
 
