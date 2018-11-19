@@ -75,6 +75,10 @@ class NewVisitorTest(unittest.TestCase):
         inputboxYear.send_keys('2018')
 
         # When the Faculty member hits enter, the page updates, and adds the new data to the sampledb DB
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(10)
+
+        table = self.browser.find_element_by_id('id_list_table')
         self.fail('Finish the test!')
 
 if __name__ == '__main__':  
