@@ -1,7 +1,14 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
 import time
 import unittest
+import re
+
+driver = webdriver.Firefox()
+
 
 class NewVisitorTest(unittest.TestCase):
 
@@ -92,11 +99,17 @@ class NewVisitorTest(unittest.TestCase):
         inputboxYear.send_keys(Keys.ENTER)
         time.sleep(1)
 
+    
+        driver = webdriver.Firefox()
+        python_button = driver.find_elements_by_xpath("//input[@name='scriptbutton' and @value='Visualize Assignment Data']")
+        python_button.click()
+
         table = self.browser.find_element_by_id('id_list_table')
         self.fail('Finish the test!')
 
 if __name__ == '__main__':  
-    unittest.main(warnings='ignore')        
+    unittest.main(warnings='ignore')   
+     
 
 
 
