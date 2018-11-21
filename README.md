@@ -46,3 +46,11 @@ Required libraries:
 
 >bokeh
 
+## Notes on where we ended up. 
+
+Moved further through testing although we ran into several issues related to our database items having multiple fields that were getting us stuck. This was simplified in order to get an initial migration done. 
+
+In the original TDD assignments each item in the data base was a single text field. Our data for the assigment data was made up of multiple fields per row. This proved to be problimatic when trying to adapt from the original assigment. 
+
+We were able to add a button to the home page to call the viualization program. We are very close to having the button auto click in functional_tests but have been unable to have it recoginize the click method. 
+
